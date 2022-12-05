@@ -3,7 +3,7 @@ package aoc2022
 import AoCDay
 
 // https://adventofcode.com/2022/day/1
-object Day1 : AoCDay(
+object Day1 : AoCDay<Int>(
     title = "Calorie Counting",
     part1ExampleAnswer = 24000,
     part1Answer = 70698,

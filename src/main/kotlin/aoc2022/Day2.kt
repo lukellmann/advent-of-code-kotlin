@@ -4,7 +4,7 @@ import AoCDay
 import aoc2022.Day2.Shape.*
 
 // https://adventofcode.com/2022/day/2
-object Day2 : AoCDay(
+object Day2 : AoCDay<Int>(
     title = "Rock Paper Scissors",
     part1ExampleAnswer = 15,
     part1Answer = 13809,

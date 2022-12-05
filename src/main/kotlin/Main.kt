@@ -5,4 +5,4 @@ private val days = setOf(
     aoc2022.Day4,
 )
 
-fun main() = days.forEach(AoCDay::printAnswers)
+fun main() = days.forEach(AoCDay<*>::printAnswers)

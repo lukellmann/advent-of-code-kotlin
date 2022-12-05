@@ -8,12 +8,12 @@ val INPUT_DIR = Path("input")
 
 private fun readTextWithLFEndings(file: Path) = file.useLines { lines -> lines.joinToString(separator = "\n") }
 
-abstract class AoCDay(
+abstract class AoCDay<out T : Any>(
     private val title: String,
-    private val part1ExampleAnswer: Int,
-    private val part1Answer: Int? = null,
-    private val part2ExampleAnswer: Int? = null,
-    private val part2Answer: Int? = null,
+    private val part1ExampleAnswer: T,
+    private val part1Answer: T? = null,
+    private val part2ExampleAnswer: T? = null,
+    private val part2Answer: T? = null,
 ) {
     private val year: Int
     private val day: Int
@@ -26,21 +26,10 @@ abstract class AoCDay(
         day = d.toInt()
     }
 
-    @Volatile
-    private var part1IsImplemented: Boolean = true
-    protected open fun part1(input: String): Int {
-        part1IsImplemented = false
-        return 0
-    }
+    protected abstract fun part1(input: String): T
+    protected abstract fun part2(input: String): T
 
-    @Volatile
-    private var part2IsImplemented: Boolean = true
-    protected open fun part2(input: String): Int {
-        part2IsImplemented = false
-        return 0
-    }
-
-    private fun checkAnswer(puzzle: String, expectedAnswer: Int?, actualAnswer: Int) {
+    private fun checkAnswer(puzzle: String, expectedAnswer: T?, actualAnswer: T) {
         if (expectedAnswer != null) {
             check(expectedAnswer == actualAnswer) {
                 "$year Day $day: $puzzle no longer produces the same answer as before, expected $expectedAnswer but " +
@@ -60,21 +49,17 @@ abstract class AoCDay(
         val actualPart2ExampleAnswer = part2(exampleInput)
         val actualPart2Answer = part2(input)
 
-        if (part1IsImplemented) {
-            checkAnswer("part 1 example", expectedAnswer = part1ExampleAnswer, actualPart1ExampleAnswer)
-            checkAnswer("part 1", expectedAnswer = part1Answer, actualPart1Answer)
-        }
-        if (part2IsImplemented) {
-            checkAnswer("part 2 example", expectedAnswer = part2ExampleAnswer, actualPart2ExampleAnswer)
-            checkAnswer("part 2", expectedAnswer = part2Answer, actualPart2Answer)
-        }
+        checkAnswer("part 1 example", expectedAnswer = part1ExampleAnswer, actualPart1ExampleAnswer)
+        checkAnswer("part 1", expectedAnswer = part1Answer, actualPart1Answer)
+        checkAnswer("part 2 example", expectedAnswer = part2ExampleAnswer, actualPart2ExampleAnswer)
+        checkAnswer("part 2", expectedAnswer = part2Answer, actualPart2Answer)
 
         val output = """
             --- $year Day $day: $title ---
-            ${if (part1IsImplemented) "part 1 example answer:  $actualPart1ExampleAnswer" else "part 1 not yet implemented"}
-            ${if (part1IsImplemented) "part 1 answer:          $actualPart1Answer" else "part 1 not yet implemented"}
-            ${if (part2IsImplemented) "part 2 example answer:  $actualPart2ExampleAnswer" else "part 2 not yet implemented"}
-            ${if (part2IsImplemented) "part 2 answer:          $actualPart2Answer" else "part 2 not yet implemented"}
+            "part 1 example answer:  $actualPart1ExampleAnswer
+            "part 1 answer:          $actualPart1Answer
+            "part 2 example answer:  $actualPart2ExampleAnswer
+            "part 2 answer:          $actualPart2Answer
         """.trimIndent()
 
         println(output)
