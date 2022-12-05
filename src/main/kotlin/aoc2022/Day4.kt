@@ -33,8 +33,8 @@ object Day4 : AoCDay<Int>(
 
     private infix fun <T : Comparable<T>> ClosedRange<T>.overlapsWith(other: ClosedRange<T>) =
         this.isEmpty() || other.isEmpty() ||
-                (this.start in other) || (this.endInclusive in other) ||
-                (other.start in this) || (other.endInclusive in this)
+            (this.start in other) || (this.endInclusive in other) ||
+            (other.start in this) || (other.endInclusive in this)
 
     override fun part1(input: String) = elfPairs(input)
         .count { it.sections1 in it.sections2 || it.sections2 in it.sections1 }

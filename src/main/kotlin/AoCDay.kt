@@ -33,7 +33,7 @@ abstract class AoCDay<out T : Any>(
         if (expectedAnswer != null) {
             check(expectedAnswer == actualAnswer) {
                 "$year Day $day: $puzzle no longer produces the same answer as before, expected $expectedAnswer but " +
-                        "got $actualAnswer"
+                    "got $actualAnswer"
             }
         }
     }
