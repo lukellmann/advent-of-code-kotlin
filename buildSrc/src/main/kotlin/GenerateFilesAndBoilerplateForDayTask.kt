@@ -26,7 +26,7 @@ abstract class GenerateFilesAndBoilerplateForDayTask : DefaultTask() {
         val rootDir = project.rootDir.toPath()
         val kotlinDir = rootDir / "src" / "main" / "kotlin"
 
-        // add new day to set in Main.kt
+        // add new day to list in Main.kt
         val mainFile = kotlinDir / "Main.kt"
         val mainLines = mainFile.useLines { lines -> lines.toMutableList() }
         val (day, insertIndex) = getDayAndInsertIndex(year, mainLines)
@@ -69,7 +69,7 @@ abstract class GenerateFilesAndBoilerplateForDayTask : DefaultTask() {
 
         if (previousDay == null) {
             day = 1
-            insertIndex = 1 // line at index 0 is `private val days = setOf(`
+            insertIndex = 1 // line at index 0 is `private val days = listOf(`
         } else {
             day = if (previousDay.year == year) previousDay.day + 1 else 1
             insertIndex = previousDay.index + 1
