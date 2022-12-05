@@ -30,4 +30,6 @@ tasks {
             freeCompilerArgs += "-progressive"
         }
     }
+
+    register<GenerateFilesAndBoilerplateForDayTask>("generate")
 }
