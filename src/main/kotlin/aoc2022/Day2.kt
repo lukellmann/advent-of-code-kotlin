@@ -37,13 +37,12 @@ object Day2 : AoCDay<Int>(
 
     private fun sumRoundScores(input: String, selectMyShape: (opponentShape: Shape, column2: Char) -> Shape) = input
         .lineSequence()
-        .map { line ->
+        .sumOf { line ->
             val opponentShape = line[0].toShape()
             val myShape = selectMyShape(opponentShape, line[2])
 
             calculateRoundScore(myShape, opponentShape)
         }
-        .sum()
 
     override fun part1(input: String) = sumRoundScores(
         input,
