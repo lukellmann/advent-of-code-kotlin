@@ -8,7 +8,7 @@ import java.nio.file.Files.createFile
 import java.time.Year
 import kotlin.io.path.*
 
-private val DAY_MAIN_LINE_REGEX = Regex(""" {4}aoc(\d{4}).Day(\d{1,2}),""")
+private val DAY_MAIN_LINE_REGEX = Regex(""" {4}aoc(\d{4})\.Day(\d{1,2}),""")
 
 abstract class GenerateFilesAndBoilerplateForDayTask : DefaultTask() {
 

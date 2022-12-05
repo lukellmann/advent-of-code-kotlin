@@ -3,7 +3,7 @@ import kotlin.io.path.Path
 import kotlin.io.path.div
 import kotlin.io.path.useLines
 
-val AOC_DAY_NAME_REGEX = Regex("""aoc(20(?:1[5-9]|[2-9]\d)).Day(\d|1\d|2[0-5])""")
+val AOC_DAY_NAME_REGEX = Regex("""aoc(20(?:1[5-9]|[2-9]\d))\.Day(\d|1\d|2[0-5])""")
 val INPUT_DIR = Path("input")
 
 private fun readTextWithLFEndings(file: Path) = file.useLines { lines -> lines.joinToString(separator = "\n") }
