@@ -49,11 +49,6 @@ abstract class AoCDay<out T : Any>(
         val actualPart2ExampleAnswer = part2(exampleInput)
         val actualPart2Answer = part2(input)
 
-        checkAnswer("part 1 example", expectedAnswer = part1ExampleAnswer, actualPart1ExampleAnswer)
-        checkAnswer("part 1", expectedAnswer = part1Answer, actualPart1Answer)
-        checkAnswer("part 2 example", expectedAnswer = part2ExampleAnswer, actualPart2ExampleAnswer)
-        checkAnswer("part 2", expectedAnswer = part2Answer, actualPart2Answer)
-
         val output = """
             --- $year Day $day: $title ---
             "part 1 example answer:  $actualPart1ExampleAnswer
@@ -64,5 +59,10 @@ abstract class AoCDay<out T : Any>(
 
         println(output)
         println()
+
+        checkAnswer("part 1 example", expectedAnswer = part1ExampleAnswer, actualPart1ExampleAnswer)
+        checkAnswer("part 1", expectedAnswer = part1Answer, actualPart1Answer)
+        checkAnswer("part 2 example", expectedAnswer = part2ExampleAnswer, actualPart2ExampleAnswer)
+        checkAnswer("part 2", expectedAnswer = part2Answer, actualPart2Answer)
     }
 }
