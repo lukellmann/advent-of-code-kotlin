@@ -2,6 +2,9 @@ package aoc2022
 
 import AoCDay
 import aoc2022.Day2.Shape.*
+import util.component1
+import util.component2
+import util.component3
 import util.illegalChar
 
 // https://adventofcode.com/2022/day/2
@@ -36,9 +39,9 @@ object Day2 : AoCDay<Int>(
 
     private fun sumRoundScores(input: String, selectMyShape: (opponentShape: Shape, column2: Char) -> Shape) = input
         .lineSequence()
-        .sumOf { line ->
-            val opponentShape = line[0].toShape()
-            val myShape = selectMyShape(opponentShape, line[2])
+        .sumOf { (column1, _, column2) ->
+            val opponentShape = column1.toShape()
+            val myShape = selectMyShape(opponentShape, column2)
 
             calculateRoundScore(myShape, opponentShape)
         }
