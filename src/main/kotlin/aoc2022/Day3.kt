@@ -1,7 +1,7 @@
 package aoc2022
 
 import AoCDay
-import util.illegalChar
+import util.illegalInput
 
 // https://adventofcode.com/2022/day/3
 object Day3 : AoCDay<Int>(
@@ -22,7 +22,7 @@ object Day3 : AoCDay<Int>(
         when (item) {
             in 'a'..'z' -> (item - 'a') + 1
             in 'A'..'Z' -> (item - 'A') + 27
-            else -> illegalChar(item)
+            else -> illegalInput(item)
         }
     }
 

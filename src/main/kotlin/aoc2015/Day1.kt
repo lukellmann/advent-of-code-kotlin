@@ -1,7 +1,7 @@
 package aoc2015
 
 import AoCDay
-import util.illegalChar
+import util.illegalInput
 
 // https://adventofcode.com/2015/day/1
 object Day1 : AoCDay<Int>(
@@ -15,7 +15,7 @@ object Day1 : AoCDay<Int>(
         get() = when (this) {
             '(' -> +1
             ')' -> -1
-            else -> illegalChar(this)
+            else -> illegalInput(this)
         }
 
     override fun part1(input: String) = input.fold(initial = 0) { floor, char -> floor + char.direction }

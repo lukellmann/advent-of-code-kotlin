@@ -2,6 +2,7 @@ package aoc2015
 
 import AoCDay
 import aoc2015.Day6.Instruction.*
+import util.illegalInput
 
 // https://adventofcode.com/2015/day/6
 object Day6 : AoCDay<Int>(
@@ -17,7 +18,7 @@ object Day6 : AoCDay<Int>(
         "turn on" -> TURN_ON
         "toggle" -> TOGGLE
         "turn off" -> TURN_OFF
-        else -> throw IllegalArgumentException("Illegal instruction: $this")
+        else -> illegalInput(this)
     }
 
     private val INSTRUCTION_REGEX = Regex("""(turn on|toggle|turn off) (\d+),(\d+) through (\d+),(\d+)""")

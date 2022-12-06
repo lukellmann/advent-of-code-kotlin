@@ -1,3 +1,3 @@
 package util
 
-fun illegalChar(char: Char): Nothing = throw IllegalArgumentException("Illegal char: $char")
+fun illegalInput(input: Any): Nothing = throw IllegalArgumentException("Illegal input: $input")

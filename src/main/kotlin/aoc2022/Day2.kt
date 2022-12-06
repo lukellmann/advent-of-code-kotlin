@@ -5,7 +5,7 @@ import aoc2022.Day2.Shape.*
 import util.component1
 import util.component2
 import util.component3
-import util.illegalChar
+import util.illegalInput
 
 // https://adventofcode.com/2022/day/2
 object Day2 : AoCDay<Int>(
@@ -25,7 +25,7 @@ object Day2 : AoCDay<Int>(
         'A' -> ROCK
         'B' -> PAPER
         'C' -> SCISSORS
-        else -> illegalChar(this)
+        else -> illegalInput(this)
     }
 
     private fun calculateRoundScore(myShape: Shape, opponentShape: Shape): Int {
@@ -53,7 +53,7 @@ object Day2 : AoCDay<Int>(
                 'X' -> ROCK
                 'Y' -> PAPER
                 'Z' -> SCISSORS
-                else -> illegalChar(column2)
+                else -> illegalInput(column2)
             }
         },
     )
@@ -65,7 +65,7 @@ object Day2 : AoCDay<Int>(
                 'X' -> opponentShape.defeats() // I need to loose
                 'Y' -> opponentShape // I need the round to end in a draw
                 'Z' -> opponentShape.isDefeatedBy() // I need to win
-                else -> illegalChar(column2)
+                else -> illegalInput(column2)
             }
         },
     )

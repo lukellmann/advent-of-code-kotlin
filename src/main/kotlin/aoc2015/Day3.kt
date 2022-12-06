@@ -1,7 +1,7 @@
 package aoc2015
 
 import AoCDay
-import util.illegalChar
+import util.illegalInput
 
 // https://adventofcode.com/2015/day/3
 object Day3 : AoCDay<Int>(
@@ -22,7 +22,7 @@ object Day3 : AoCDay<Int>(
             'v' -> House(x, y = y - 1)
             '>' -> House(x = x + 1, y)
             '<' -> House(x = x - 1, y)
-            else -> illegalChar(direction)
+            else -> illegalInput(direction)
         }
     }
 
