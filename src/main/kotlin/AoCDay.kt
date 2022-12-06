@@ -51,10 +51,10 @@ abstract class AoCDay<out T : Any>(
 
         val output = """
             --- $year Day $day: $title ---
-            "part 1 example answer:  $actualPart1ExampleAnswer
-            "part 1 answer:          $actualPart1Answer
-            "part 2 example answer:  $actualPart2ExampleAnswer
-            "part 2 answer:          $actualPart2Answer
+            part 1 example answer:  $actualPart1ExampleAnswer
+            part 1 answer:          $actualPart1Answer
+            part 2 example answer:  $actualPart2ExampleAnswer
+            part 2 answer:          $actualPart2Answer
         """.trimIndent()
 
         if (day == 1) repeat(3) { println() }

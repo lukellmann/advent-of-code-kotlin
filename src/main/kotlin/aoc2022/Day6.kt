@@ -10,13 +10,9 @@ object Day6 : AoCDay<Int>(
     part2ExampleAnswer = 19,
     part2Answer = 2564,
 ) {
-    private class Window(val index: Int, val uniqueChars: Int)
-
     private fun countCharsUntilNUniqueChars(signal: String, n: Int) = signal
         .windowedSequence(size = n, step = 1)
-        .mapIndexed { index, window -> Window(index, uniqueChars = window.toSet().size) }
-        .first { it.uniqueChars == n }
-        .index + n
+        .indexOfFirst { window -> window.toSet().size == n } + n
 
     override fun part1(input: String) = countCharsUntilNUniqueChars(signal = input, n = 4)
 
