@@ -2,6 +2,7 @@ package aoc2022
 
 import AoCDay
 import aoc2022.Day2.Shape.*
+import util.illegalChar
 
 // https://adventofcode.com/2022/day/2
 object Day2 : AoCDay<Int>(
@@ -16,8 +17,6 @@ object Day2 : AoCDay<Int>(
         PAPER(defeats = { ROCK }, isDefeatedBy = { SCISSORS }, score = 2),
         SCISSORS(defeats = { PAPER }, isDefeatedBy = { ROCK }, score = 3),
     }
-
-    private fun illegalChar(char: Char): Nothing = throw IllegalArgumentException("Illegal char: $char")
 
     private fun Char.toShape() = when (this) {
         'A' -> ROCK

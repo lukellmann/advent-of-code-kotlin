@@ -57,6 +57,7 @@ abstract class AoCDay<out T : Any>(
             "part 2 answer:          $actualPart2Answer
         """.trimIndent()
 
+        if (day == 1) repeat(3) { println() }
         println(output)
         println()
 
