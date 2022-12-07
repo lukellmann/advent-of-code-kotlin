@@ -10,10 +10,10 @@ private fun readTextWithLFEndings(file: Path) = file.useLines { lines -> lines.j
 
 abstract class AoCDay<out T : Any>(
     private val title: String,
-    private val part1ExampleAnswer: T,
-    private val part1Answer: T? = null,
+    private val part1ExampleAnswer: T? = null,
+    private val part1Answer: T?,
     private val part2ExampleAnswer: T? = null,
-    private val part2Answer: T? = null,
+    private val part2Answer: T?,
 ) {
     private val year: Int
     private val day: Int
@@ -41,29 +41,33 @@ abstract class AoCDay<out T : Any>(
     fun printAnswers() {
         val inputDirForYear = INPUT_DIR / "aoc$year"
 
-        val exampleInput = readTextWithLFEndings(inputDirForYear / "day$day-example.txt")
+        val exampleInput = if (part1ExampleAnswer != null || part2ExampleAnswer != null) {
+            readTextWithLFEndings(inputDirForYear / "day$day-example.txt")
+        } else null
         val input = readTextWithLFEndings(inputDirForYear / "day$day.txt")
 
-        val actualPart1ExampleAnswer = part1(exampleInput)
+        val actualPart1ExampleAnswer = if (part1ExampleAnswer != null) part1(exampleInput!!) else null
         val actualPart1Answer = part1(input)
-        val actualPart2ExampleAnswer = part2(exampleInput)
+        val actualPart2ExampleAnswer = if (part2ExampleAnswer != null) part2(exampleInput!!) else null
         val actualPart2Answer = part2(input)
 
-        val output = """
-            --- $year Day $day: $title ---
-            part 1 example answer:  $actualPart1ExampleAnswer
-            part 1 answer:          $actualPart1Answer
-            part 2 example answer:  $actualPart2ExampleAnswer
-            part 2 answer:          $actualPart2Answer
-        """.trimIndent()
+        val output = "--- $year Day $day: $title ---\n" +
+            (if (actualPart1ExampleAnswer != null) "part 1 example answer:  $actualPart1ExampleAnswer\n" else "") +
+            "part 1 answer:          $actualPart1Answer\n" +
+            (if (actualPart2ExampleAnswer != null) "part 2 example answer:  $actualPart2ExampleAnswer\n" else "") +
+            "part 2 answer:          $actualPart2Answer"
 
         if (day == 1) repeat(3) { println() }
         println(output)
         println()
 
-        checkAnswer("part 1 example", expectedAnswer = part1ExampleAnswer, actualPart1ExampleAnswer)
+        if (actualPart1ExampleAnswer != null) {
+            checkAnswer("part 1 example", expectedAnswer = part1ExampleAnswer, actualPart1ExampleAnswer)
+        }
         checkAnswer("part 1", expectedAnswer = part1Answer, actualPart1Answer)
-        checkAnswer("part 2 example", expectedAnswer = part2ExampleAnswer, actualPart2ExampleAnswer)
+        if (actualPart2ExampleAnswer != null) {
+            checkAnswer("part 2 example", expectedAnswer = part2ExampleAnswer, actualPart2ExampleAnswer)
+        }
         checkAnswer("part 2", expectedAnswer = part2Answer, actualPart2Answer)
     }
 }

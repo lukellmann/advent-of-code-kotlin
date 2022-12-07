@@ -8,7 +8,6 @@ object Day4 : AoCDay<Int>(
     title = "The Ideal Stocking Stuffer",
     part1ExampleAnswer = 1048970,
     part1Answer = 254575,
-    part2ExampleAnswer = 5714438,
     part2Answer = 1038736,
 ) {
     private const val ZERO: Byte = 0

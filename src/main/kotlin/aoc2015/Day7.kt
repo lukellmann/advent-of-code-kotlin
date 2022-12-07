@@ -11,7 +11,6 @@ object Day7 : AoCDay<UShort>(
     title = "Some Assembly Required",
     part1ExampleAnswer = 65412u,
     part1Answer = 16076u,
-    part2ExampleAnswer = 123u,
     part2Answer = 2797u,
 ) {
     private sealed interface Signal {
