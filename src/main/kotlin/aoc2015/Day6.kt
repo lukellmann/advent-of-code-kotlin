@@ -3,6 +3,7 @@ package aoc2015
 import AoCDay
 import aoc2015.Day6.Instruction.*
 import util.illegalInput
+import util.match
 
 // https://adventofcode.com/2015/day/6
 object Day6 : AoCDay<Int>(
@@ -30,7 +31,7 @@ object Day6 : AoCDay<Int>(
     ) {
         input
             .lineSequence()
-            .map { line -> INSTRUCTION_REGEX.matchEntire(line)!!.destructured }
+            .map { line -> INSTRUCTION_REGEX.match(line) }
             .forEach { (instr, x1, y1, x2, y2) ->
                 val instruction = instr.toInstruction()
                 val xs = x1.toInt()..x2.toInt()

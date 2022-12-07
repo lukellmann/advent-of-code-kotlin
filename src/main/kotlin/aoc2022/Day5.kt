@@ -1,6 +1,7 @@
 package aoc2022
 
 import AoCDay
+import util.match
 
 private typealias CrateStack = ArrayDeque<Char>
 
@@ -39,13 +40,7 @@ object Day5 : AoCDay<String>(
     private val STEP_REGEX = Regex("""move (\d+) from (\d) to (\d)""")
     private fun parseSteps(input: String) = input
         .lineSequence()
-        .map { line ->
-            STEP_REGEX
-                .matchEntire(line)!!
-                .groupValues
-                .drop(1) // first is the entire match
-                .map(String::toInt)
-        }
+        .map { line -> STEP_REGEX.match(line).toList().map(String::toInt) }
         .map { (amount, from, to) -> Step(amount, origin = from - 1, target = to - 1) } // 0-based indexing
 
     private fun rearrangeCrateStacksAndGetTopCrates(
