@@ -12,7 +12,7 @@ object Day02 : AoCDay<Int>(
 ) {
     private fun dimensionsSequence(input: String) = input
         .lineSequence()
-        .map { line -> line.split('x').map(String::toInt) }
+        .map { line -> line.split('x', limit = 3).map(String::toInt) }
 
     override fun part1(input: String) = dimensionsSequence(input).sumOf { (l, w, h) ->
         val s1 = l * w

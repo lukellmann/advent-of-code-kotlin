@@ -14,7 +14,7 @@ object Day05 : AoCDay<Int>(
     part2Answer = 51,
 ) {
     private const val VOWELS = "aeiou"
-    private val BAD_SUBSTRINGS = hashSetOf("ab", "cd", "pq", "xy")
+    private val BAD_SUBSTRINGS = setOf("ab", "cd", "pq", "xy")
 
     private inline fun countNiceStrings(input: String, isNice: (String) -> Boolean) = input.lineSequence().count(isNice)
 

@@ -30,7 +30,7 @@ object Day07 : AoCDay<UShort>(
     private const val NOT = "NOT "
 
     private inline fun parseBinarySignal(signal: String, op: String, ctor: (Signal, Signal) -> Signal): Signal {
-        val (left, right) = signal.split(op).map(::parseSignal)
+        val (left, right) = signal.split(op, limit = 2).map(::parseSignal)
         return ctor(left, right)
     }
 
@@ -47,7 +47,7 @@ object Day07 : AoCDay<UShort>(
 
     private fun parseWires(input: String) = input
         .lineSequence()
-        .map { line -> line.split(" -> ") }
+        .map { line -> line.split(" -> ", limit = 2) }
         .associate { (signal, wireId) -> wireId to parseSignal(signal) }
 
     private fun Signal.eval(wires: Map<WireId, Signal>, mem: MutableMap<WireId, UShort>): UShort = when (this) {
@@ -61,7 +61,7 @@ object Day07 : AoCDay<UShort>(
     }
 
     private fun Map<WireId, Signal>.evaluateWire(wireId: WireId) =
-        getValue(wireId).eval(wires = this, mem = hashMapOf())
+        getValue(wireId).eval(wires = this, mem = HashMap())
 
     override fun part1(input: String) = parseWires(input).evaluateWire("a")
 

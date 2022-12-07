@@ -16,6 +16,7 @@ private val days = listOf(
     aoc2022.Day04,
     aoc2022.Day05,
     aoc2022.Day06,
+    aoc2022.Day07,
 )
 
 fun main() = days.forEach(AoCDay<*>::printAnswers)

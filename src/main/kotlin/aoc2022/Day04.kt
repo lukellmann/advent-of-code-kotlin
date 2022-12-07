@@ -15,9 +15,9 @@ object Day04 : AoCDay<Int>(
         val sections2: IntRange
 
         init {
-            val (s1, s2) = input.split(',')
+            val (s1, s2) = input.split(',', limit = 2)
 
-            fun String.toSections() = split('-')
+            fun String.toSections() = split('-', limit = 2)
                 .map(String::toInt)
                 .let { (start, end) -> start..end }
 

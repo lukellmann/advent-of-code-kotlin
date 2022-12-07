@@ -47,7 +47,7 @@ object Day05 : AoCDay<String>(
         input: String,
         step: (amount: Int, origin: CrateStack, target: CrateStack) -> Unit,
     ): String {
-        val (crateStacksInput, stepsInput) = input.split("\n\n")
+        val (crateStacksInput, stepsInput) = input.split("\n\n", limit = 2)
         val crateStacks = parseCrateStacks(crateStacksInput)
 
         for ((amount, origin, target) in parseSteps(stepsInput)) {
