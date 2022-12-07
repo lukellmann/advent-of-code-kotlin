@@ -3,7 +3,7 @@ import kotlin.io.path.Path
 import kotlin.io.path.div
 import kotlin.io.path.useLines
 
-val AOC_DAY_NAME_REGEX = Regex("""aoc(20(?:1[5-9]|[2-9]\d))\.Day(\d|1\d|2[0-5])""")
+val AOC_DAY_NAME_REGEX = Regex("""aoc(20(?:1[5-9]|[2-9]\d))\.Day([01]\d|2[0-5])""")
 val INPUT_DIR = Path("input")
 
 private fun readTextWithLFEndings(file: Path) = file.useLines { lines -> lines.joinToString(separator = "\n") }
@@ -41,10 +41,11 @@ abstract class AoCDay<out T : Any>(
     fun printAnswers() {
         val inputDirForYear = INPUT_DIR / "aoc$year"
 
+        val dayString = day.toString().padStart(2, '0')
         val exampleInput = if (part1ExampleAnswer != null || part2ExampleAnswer != null) {
-            readTextWithLFEndings(inputDirForYear / "day$day-example.txt")
+            readTextWithLFEndings(inputDirForYear / "day$dayString-example.txt")
         } else null
-        val input = readTextWithLFEndings(inputDirForYear / "day$day.txt")
+        val input = readTextWithLFEndings(inputDirForYear / "day$dayString.txt")
 
         val actualPart1ExampleAnswer = if (part1ExampleAnswer != null) part1(exampleInput!!) else null
         val actualPart1Answer = part1(input)

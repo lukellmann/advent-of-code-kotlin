@@ -4,7 +4,7 @@ import AoCDay
 import util.illegalInput
 
 // https://adventofcode.com/2015/day/3
-object Day3 : AoCDay<Int>(
+object Day03 : AoCDay<Int>(
     title = "Perfectly Spherical Houses in a Vacuum",
     part1ExampleAnswer = 4,
     part1Answer = 2592,

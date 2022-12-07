@@ -6,7 +6,7 @@ import util.component2
 import util.component3
 
 // https://adventofcode.com/2015/day/5
-object Day5 : AoCDay<Int>(
+object Day05 : AoCDay<Int>(
     title = "Doesn't He Have Intern-Elves For This?",
     part1ExampleAnswer = 2,
     part1Answer = 236,

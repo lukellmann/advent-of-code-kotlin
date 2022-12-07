@@ -6,7 +6,7 @@ import util.match
 private typealias CrateStack = ArrayDeque<Char>
 
 // https://adventofcode.com/2022/day/5
-object Day5 : AoCDay<String>(
+object Day05 : AoCDay<String>(
     title = "Supply Stacks",
     part1ExampleAnswer = "CMZ",
     part1Answer = "QNHWJVJZW",

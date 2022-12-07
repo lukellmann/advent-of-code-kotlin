@@ -1,12 +1,12 @@
 package aoc2015
 
 import AoCDay
-import aoc2015.Day6.Instruction.*
+import aoc2015.Day06.Instruction.*
 import util.illegalInput
 import util.match
 
 // https://adventofcode.com/2015/day/6
-object Day6 : AoCDay<Int>(
+object Day06 : AoCDay<Int>(
     title = "Probably a Fire Hazard",
     part1ExampleAnswer = 1_000_000 - 1_000 - 4,
     part1Answer = 400410,

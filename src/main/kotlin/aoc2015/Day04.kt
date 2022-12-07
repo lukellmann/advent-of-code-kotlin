@@ -4,7 +4,7 @@ import AoCDay
 import java.security.MessageDigest
 
 // https://adventofcode.com/2015/day/4
-object Day4 : AoCDay<Int>(
+object Day04 : AoCDay<Int>(
     title = "The Ideal Stocking Stuffer",
     part1ExampleAnswer = 1048970,
     part1Answer = 254575,

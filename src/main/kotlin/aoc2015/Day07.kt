@@ -1,13 +1,13 @@
 package aoc2015
 
 import AoCDay
-import aoc2015.Day7.Signal.*
+import aoc2015.Day07.Signal.*
 import util.illegalInput
 
 private typealias WireId = String
 
 // https://adventofcode.com/2015/day/7
-object Day7 : AoCDay<UShort>(
+object Day07 : AoCDay<UShort>(
     title = "Some Assembly Required",
     part1ExampleAnswer = 65412u,
     part1Answer = 16076u,

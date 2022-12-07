@@ -8,7 +8,7 @@ import java.nio.file.Files.createFile
 import java.time.Year
 import kotlin.io.path.*
 
-private val DAY_MAIN_LINE_REGEX = Regex(""" {4}aoc(\d{4})\.Day(\d{1,2}),""")
+private val DAY_MAIN_LINE_REGEX = Regex(""" {4}aoc(\d{4})\.Day(\d{2}),""")
 
 abstract class GenerateFilesAndBoilerplateForDayTask : DefaultTask() {
 
@@ -30,19 +30,20 @@ abstract class GenerateFilesAndBoilerplateForDayTask : DefaultTask() {
         val mainFile = kotlinDir / "Main.kt"
         val mainLines = mainFile.useLines { lines -> lines.toMutableList() }
         val (day, insertIndex) = getDayAndInsertIndex(year, mainLines)
-        mainLines.add(insertIndex, "    aoc$year.Day$day,")
+        val dayString = day.toString().padStart(2, '0')
+        mainLines.add(insertIndex, "    aoc$year.Day$dayString,")
         mainFile.writeLines(mainLines)
 
         // create file with daily object boilerplate
         val aocDir = kotlinDir / "aoc$year"
         aocDir.createDirectories()
-        (aocDir / "Day$day.kt").writeText(dayObjectBoilerplate(year, day))
+        (aocDir / "Day$dayString.kt").writeText(dayObjectBoilerplate(year, day, dayString))
 
         // create input files, content will be copied over manually
         val inputDir = rootDir / "input" / "aoc$year"
         inputDir.createDirectories()
-        createFile(inputDir / "day$day-example.txt")
-        createFile(inputDir / "day$day.txt")
+        createFile(inputDir / "day$dayString-example.txt")
+        createFile(inputDir / "day$dayString.txt")
     }
 
 
@@ -79,13 +80,13 @@ abstract class GenerateFilesAndBoilerplateForDayTask : DefaultTask() {
     }
 
 
-    private fun dayObjectBoilerplate(year: Int, day: Int) = """
+    private fun dayObjectBoilerplate(year: Int, day: Int, dayString: String) = """
         package aoc$year
         
         import AoCDay
         
         // https://adventofcode.com/$year/day/$day
-        object Day$day : AoCDay<>(
+        object Day$dayString : AoCDay<>(
             title = "",
             part1ExampleAnswer = ,
             part1Answer = null,

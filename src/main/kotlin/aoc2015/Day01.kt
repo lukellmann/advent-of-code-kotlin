@@ -4,7 +4,7 @@ import AoCDay
 import util.illegalInput
 
 // https://adventofcode.com/2015/day/1
-object Day1 : AoCDay<Int>(
+object Day01 : AoCDay<Int>(
     title = "Not Quite Lisp",
     part1ExampleAnswer = 3,
     part1Answer = 280,

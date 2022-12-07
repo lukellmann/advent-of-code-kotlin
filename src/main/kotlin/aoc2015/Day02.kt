@@ -3,7 +3,7 @@ package aoc2015
 import AoCDay
 
 // https://adventofcode.com/2015/day/2
-object Day2 : AoCDay<Int>(
+object Day02 : AoCDay<Int>(
     title = "I Was Told There Would Be No Math",
     part1ExampleAnswer = 58 + 43,
     part1Answer = 1586300,

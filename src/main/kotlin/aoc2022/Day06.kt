@@ -3,7 +3,7 @@ package aoc2022
 import AoCDay
 
 // https://adventofcode.com/2022/day/6
-object Day6 : AoCDay<Int>(
+object Day06 : AoCDay<Int>(
     title = "Tuning Trouble",
     part1ExampleAnswer = 7,
     part1Answer = 1356,

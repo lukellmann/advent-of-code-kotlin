@@ -4,7 +4,7 @@ import AoCDay
 import util.illegalInput
 
 // https://adventofcode.com/2015/day/8
-object Day8 : AoCDay<Int>(
+object Day08 : AoCDay<Int>(
     title = "Matchsticks",
     part1ExampleAnswer = (2 + 5 + 10 + 6) - (0 + 3 + 7 + 1),
     part1Answer = 1333,

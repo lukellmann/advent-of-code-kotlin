@@ -1,14 +1,14 @@
 package aoc2022
 
 import AoCDay
-import aoc2022.Day2.Shape.*
+import aoc2022.Day02.Shape.*
 import util.component1
 import util.component2
 import util.component3
 import util.illegalInput
 
 // https://adventofcode.com/2022/day/2
-object Day2 : AoCDay<Int>(
+object Day02 : AoCDay<Int>(
     title = "Rock Paper Scissors",
     part1ExampleAnswer = 15,
     part1Answer = 13809,

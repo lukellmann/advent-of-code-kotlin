@@ -4,7 +4,7 @@ import AoCDay
 import util.match
 
 // https://adventofcode.com/2015/day/9
-object Day9 : AoCDay<Int>(
+object Day09 : AoCDay<Int>(
     title = "All in a Single Night",
     part1ExampleAnswer = 605,
     part1Answer = 207,
