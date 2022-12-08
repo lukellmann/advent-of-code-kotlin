@@ -1,9 +1,9 @@
 package aoc2022
 
 import AoCDay
-import util.match
+import util.*
 
-private typealias CrateStack = ArrayDeque<Char>
+private typealias Crate = Char
 
 // https://adventofcode.com/2022/day/5
 object Day05 : AoCDay<String>(
@@ -15,19 +15,19 @@ object Day05 : AoCDay<String>(
 ) {
     // parsing crate stacks assumes single digit stack numbers and will otherwise break
     private const val STACK_WIDTH = 4
-    private fun parseCrateStacks(input: String): Array<CrateStack> {
+    private fun parseCrateStacks(input: String): Array<Stack<Crate>> {
         // the lines in the crate part of the input all have the same length, filled with trailing spaces when needed
         val lineLength = input.lineSequence().first().length
         val stackCount = (lineLength + 1) / STACK_WIDTH // last stack doesn't have a space at the end -> + 1
-        val crateStacks = Array(size = stackCount) { CrateStack() }
+        val crateStacks = Array(size = stackCount) { Stack<Crate>() }
 
         input // drop line containing stack numbers, we know they start at 1 and that we have stackCount stacks
             .substringBeforeLast('\n')
             .lineSequence()
-            .forEach { line -> // read stacks from top to bottom -> insert crate at the first position
+            .forEach { line -> // read stacks from top to bottom -> push crates from bottom
                 for ((stackIndex, linePosition) in (1..lineLength step STACK_WIDTH).withIndex()) {
                     val crate = line[linePosition]
-                    if (crate != ' ') crateStacks[stackIndex].addFirst(crate)
+                    if (crate != ' ') crateStacks[stackIndex].pushFromBottom(crate)
                 }
             }
 
@@ -45,7 +45,7 @@ object Day05 : AoCDay<String>(
 
     private fun rearrangeCrateStacksAndGetTopCrates(
         input: String,
-        step: (amount: Int, origin: CrateStack, target: CrateStack) -> Unit,
+        step: (amount: Int, origin: Stack<Crate>, target: Stack<Crate>) -> Unit,
     ): String {
         val (crateStacksInput, stepsInput) = input.split("\n\n", limit = 2)
         val crateStacks = parseCrateStacks(crateStacksInput)
@@ -60,16 +60,14 @@ object Day05 : AoCDay<String>(
     override fun part1(input: String) = rearrangeCrateStacksAndGetTopCrates(
         input,
         step = { amount, origin, target ->
-            repeat(amount) { target.add(origin.removeLast()) }
+            repeat(amount) { target.push(origin.pop()) }
         },
     )
 
     override fun part2(input: String) = rearrangeCrateStacksAndGetTopCrates(
         input,
         step = { amount, origin, target ->
-            List(size = amount) { origin.removeLast() }
-                .asReversed()
-                .let(target::addAll)
+            List(size = amount) { origin.pop() }.asReversed().forEach(target::push)
         },
     )
 }
