@@ -41,7 +41,7 @@ object Day07 : AoCDay<UShort>(
         OR in signal -> parseBinarySignal(signal, OR, ::Or)
         LSHIFT in signal -> parseBinarySignal(signal, LSHIFT, ::LShift)
         RSHIFT in signal -> parseBinarySignal(signal, RSHIFT, ::RShift)
-        NOT in signal -> Not(signal = parseSignal(signal.substringAfter(NOT)))
+        signal.startsWith(NOT) -> Not(signal = parseSignal(signal.removePrefix(NOT)))
         else -> illegalInput(signal)
     }
 

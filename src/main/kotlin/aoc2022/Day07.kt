@@ -17,7 +17,7 @@ object Day07 : AoCDay<Int>(
     private fun parseCommandsAndOutputs(input: String) = input
         .splitToSequence("\n$ ")
         .mapIndexed { index, part ->
-            val commandAndOutput = if (index == 0) part.substringAfter("$ ") else part
+            val commandAndOutput = if (index == 0) part.removePrefix("$ ") else part
             val lines = commandAndOutput.lines()
             CommandAndOutput(command = lines.first(), output = lines.subList(1, lines.size))
         }
@@ -35,7 +35,7 @@ object Day07 : AoCDay<Int>(
             when {
                 command.startsWith("cd ") -> {
                     require(output.isEmpty())
-                    cwd = when (val dir = command.substringAfter("cd ")) {
+                    cwd = when (val dir = command.removePrefix("cd ")) {
                         "/" -> root
                         ".." -> cwd.parent ?: root
                         else -> cwd.children[dir] as Directory
@@ -98,8 +98,7 @@ object Day07 : AoCDay<Int>(
                 smallestYet
             } else {
                 children.fold(initial = min(size, smallestYet)) { smallest, child ->
-                    val smallestInChild = child.sizeOfSmallestDirectoryToDelete(smallestYet = smallest)
-                    if (smallestInChild < smallest) smallestInChild else smallest
+                    min(smallest, child.sizeOfSmallestDirectoryToDelete(smallestYet = smallest))
                 }
             }
 
