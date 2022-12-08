@@ -8,25 +8,21 @@ object Day10 : AoCDay<Int>(
     part1Answer = 252594,
     part2Answer = 3579328,
 ) {
-    private fun lookAndSaySequence(seed: String) = sequence {
-        var cur = seed
-        while (true) {
-            yield(cur)
-            cur = buildString(capacity = cur.length) {
-                var char = cur[0]
-                var charCount = 1
-                for (i in 1..cur.lastIndex) {
-                    val c = cur[i]
-                    if (c == char) {
-                        charCount++
-                    } else {
-                        append(charCount).append(char)
-                        char = c
-                        charCount = 1
-                    }
+    private fun lookAndSaySequence(seed: String) = generateSequence(seed) { prev ->
+        buildString(capacity = prev.length) {
+            var char = prev[0]
+            var charCount = 1
+            for (i in 1..prev.lastIndex) {
+                val c = prev[i]
+                if (c == char) {
+                    charCount++
+                } else {
+                    append(charCount).append(char)
+                    char = c
+                    charCount = 1
                 }
-                append(charCount).append(char)
             }
+            append(charCount).append(char)
         }
     }
 
