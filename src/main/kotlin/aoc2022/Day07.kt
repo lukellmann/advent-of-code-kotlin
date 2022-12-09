@@ -43,7 +43,7 @@ object Day07 : AoCDay<Int>(
                 }
                 command == "ls" -> {
                     for (child in output) {
-                        val (dirOrSize, name) = child.split(" ", limit = 2)
+                        val (dirOrSize, name) = child.split(' ', limit = 2)
                         val prevDirOrSize = when (val prev = cwd.children[name]) {
                             null -> null
                             is File -> prev.size.toString()

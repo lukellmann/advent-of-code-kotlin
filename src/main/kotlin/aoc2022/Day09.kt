@@ -22,7 +22,7 @@ object Day09 : AoCDay<Int>(
         val tailPositions = hashSetOf(knotPositions.last())
         headMotions
             .lineSequence()
-            .map { motion -> motion.split(" ", limit = 2) }
+            .map { motion -> motion.split(' ', limit = 2) }
             .forEach { (direction, steps) ->
                 repeat(steps.toInt()) {
                     val (xh, yh) = knotPositions[0] // head
