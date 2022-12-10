@@ -2,6 +2,7 @@ package aoc2015
 
 import AoCDay
 import util.match
+import util.permutations
 
 // https://adventofcode.com/2015/day/9
 object Day09 : AoCDay<Int>(
@@ -11,18 +12,6 @@ object Day09 : AoCDay<Int>(
     part2ExampleAnswer = 982,
     part2Answer = 804,
 ) {
-    private fun <T> List<T>.permutations(): Sequence<List<T>> {
-        val me = this
-        if (me.size <= 1) return sequenceOf(me)
-        return sequence {
-            for (perm in me.subList(1, me.size).permutations()) {
-                for (i in me.indices) {
-                    yield(perm.subList(0, i) + me[0] + perm.subList(i, perm.size))
-                }
-            }
-        }
-    }
-
     private val DISTANCE_REGEX = Regex("""(\w+) to (\w+) = (\d+)""")
 
     private fun distancesForAllRoutes(input: String): Sequence<Int> {
@@ -33,7 +22,7 @@ object Day09 : AoCDay<Int>(
         val locations = distances.keys.flatten().distinct()
         return locations
             .permutations()
-            .map { route -> route.windowed(size = 2, step = 1) { (a, b) -> distances.getValue(setOf(a, b)) }.sum() }
+            .map { route -> route.windowed(size = 2, step = 1) { (a, b) -> distances[setOf(a, b)]!! }.sum() }
     }
 
     override fun part1(input: String) = distancesForAllRoutes(input).min()

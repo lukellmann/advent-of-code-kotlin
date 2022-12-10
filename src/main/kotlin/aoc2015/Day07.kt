@@ -52,7 +52,7 @@ object Day07 : AoCDay<UShort>(
 
     private fun Signal.eval(wires: Map<WireId, Signal>, mem: MutableMap<WireId, UShort>): UShort = when (this) {
         is Value -> value
-        is Wire -> mem[wireId] ?: wires.getValue(wireId).eval(wires, mem).also { mem[wireId] = it }
+        is Wire -> mem[wireId] ?: wires[wireId]!!.eval(wires, mem).also { mem[wireId] = it }
         is And -> left.eval(wires, mem) and right.eval(wires, mem)
         is Or -> left.eval(wires, mem) or right.eval(wires, mem)
         is LShift -> (left.eval(wires, mem).toUInt() shl right.eval(wires, mem).toInt()).toUShort()
@@ -61,7 +61,7 @@ object Day07 : AoCDay<UShort>(
     }
 
     private fun Map<WireId, Signal>.evaluateWire(wireId: WireId) =
-        getValue(wireId).eval(wires = this, mem = HashMap())
+        this[wireId]!!.eval(wires = this, mem = HashMap())
 
     override fun part1(input: String) = parseWires(input).evaluateWire("a")
 
