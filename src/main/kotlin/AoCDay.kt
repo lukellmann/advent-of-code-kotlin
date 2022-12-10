@@ -7,6 +7,7 @@ val AOC_DAY_NAME_REGEX = Regex("""aoc(20(?:1[5-9]|[2-9]\d))\.Day([01]\d|2[0-5])"
 val INPUT_DIR = Path("input")
 
 private fun readTextWithLFEndings(file: Path) = file.useLines { lines -> lines.joinToString(separator = "\n") }
+private val String.isMultiline get() = lines().size > 1
 
 abstract class AoCDay<out T : Any>(
     private val title: String,
@@ -52,12 +53,23 @@ abstract class AoCDay<out T : Any>(
         val actualPart2ExampleAnswer = if (part2ExampleAnswer != null) part2(exampleInput!!) else null
         val actualPart2Answer = part2(input)
 
-        val output = "--- $year Day $day: $title ---\n" +
-            (if (actualPart1ExampleAnswer != null) "part 1 example answer:  $actualPart1ExampleAnswer\n" else "") +
-            "part 1 answer:          $actualPart1Answer\n" +
-            (if (actualPart2ExampleAnswer != null) "part 2 example answer:  $actualPart2ExampleAnswer\n" else "") +
-            "part 2 answer:          $actualPart2Answer"
-
+        val outputPart1Example = actualPart1ExampleAnswer?.let {
+            val out = it.toString()
+            "part 1 example answer:${if (out.isMultiline) "\n$out" else "  $out"}\n"
+        } ?: ""
+        val outputPart1 = actualPart1Answer.let {
+            val out = it.toString()
+            "part 1 answer:${if (out.isMultiline) "\n$out" else "          $out"}\n"
+        }
+        val outputPart2Example = actualPart2ExampleAnswer?.let {
+            val out = it.toString()
+            "part 2 example answer:${if (out.isMultiline) "\n$out" else "  $out"}\n"
+        } ?: ""
+        val outputPart2 = actualPart2Answer.let {
+            val out = it.toString()
+            "part 2 answer:${if (out.isMultiline) "\n$out" else "          $out"}"
+        }
+        val output = "--- $year Day $day: $title ---\n$outputPart1Example$outputPart1$outputPart2Example$outputPart2"
         if (day == 1) repeat(3) { println() }
         println(output)
         println()
