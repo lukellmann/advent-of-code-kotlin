@@ -25,7 +25,7 @@ object Day04 : AoCDay<Int>(
             val hash = md5.digest(text)
 
             // check leading zeros
-            for (index in 0 until fullBytes) if (hash[index] != ZERO) continue@mineLoop
+            for (index in 0..<fullBytes) if (hash[index] != ZERO) continue@mineLoop
             if (halfByte && (hash[fullBytes].toInt() and HALF_BYTE_MASK) != 0) continue@mineLoop
 
             return number // we have 4 x leadingZero zero bits -> found answer

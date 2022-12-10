@@ -2,7 +2,7 @@ import org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.21"
+    kotlin("jvm") version "1.8.0-RC"
     application
 }
 
@@ -27,7 +27,10 @@ tasks {
         kotlinOptions {
             jvmTarget = "17"
             allWarningsAsErrors = true
-            freeCompilerArgs += "-progressive"
+            freeCompilerArgs += listOf(
+                "-progressive",
+                "-opt-in=kotlin.ExperimentalStdlibApi",
+            )
         }
     }
 

@@ -44,5 +44,5 @@ object Day11 : AoCDay<Password>(
 
     override fun part1(input: Password) = nextPasswords(current = input).first { it.isValid }
 
-    override fun part2(input: Password) = nextPasswords(current = input).filter { it.isValid }.drop(1).first()
+    override fun part2(input: Password) = nextPasswords(current = input).filter { it.isValid }.elementAt(1)
 }

@@ -40,6 +40,8 @@ object Day09 : AoCDay<Int>(
                         val dy = prev.y - y
                         if (abs(dx) > 1 || abs(dy) > 1) {
                             knotPositions[i] = Position(x = x + dx.sign, y = y + dy.sign)
+                        } else {
+                            return@repeat // rest of the tail won't move either -> continue with next head motion
                         }
                     }
                     tailPositions.add(knotPositions.last())
