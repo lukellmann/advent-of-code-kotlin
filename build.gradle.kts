@@ -30,6 +30,7 @@ tasks {
             freeCompilerArgs += listOf(
                 "-progressive",
                 "-opt-in=kotlin.ExperimentalStdlibApi",
+                "-opt-in=kotlin.time.ExperimentalTime",
             )
         }
     }
