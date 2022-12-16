@@ -18,6 +18,7 @@ private val days = listOf(
     aoc2015.Day17,
     aoc2015.Day18,
     aoc2015.Day19,
+    aoc2015.Day20,
 
     aoc2022.Day01,
     aoc2022.Day02,
