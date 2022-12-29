@@ -2,7 +2,7 @@ import org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.8.0-RC2"
+    kotlin("jvm") version "1.8.0"
     application
 }
 
