@@ -1,4 +1,5 @@
 import org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -24,10 +25,10 @@ tasks {
     }
 
     withType<KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "17"
-            allWarningsAsErrors = true
-            freeCompilerArgs += listOf(
+        compilerOptions {
+            jvmTarget.set(JVM_17)
+            allWarningsAsErrors.set(true)
+            freeCompilerArgs.addAll(
                 "-progressive",
                 "-Xcontext-receivers",
                 "-opt-in=kotlin.ExperimentalStdlibApi",
