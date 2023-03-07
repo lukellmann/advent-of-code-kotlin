@@ -1,4 +1,3 @@
-import org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -17,15 +16,7 @@ application {
 }
 
 tasks {
-
-    // To upgrade Gradle, run the following command twice and commit all changes:
-    // ./gradlew wrapper --gradle-version <version> --gradle-distribution-sha256-sum <checksum>
-    // (use 'Complete (-all) ZIP Checksum' from https://gradle.org/release-checksums for <checksum>)
-    wrapper {
-        distributionType = ALL
-    }
-
-    withType<KotlinCompile> {
+    withType<KotlinCompile>().configureEach {
         compilerOptions {
             languageVersion.set(KOTLIN_2_0) // enable K2 compiler
             freeCompilerArgs.add("-Xsuppress-version-warnings")
