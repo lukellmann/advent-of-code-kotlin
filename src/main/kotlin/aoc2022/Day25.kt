@@ -9,7 +9,6 @@ object Day25 : AoCDay<String>(
     title = "Full of Hot Air",
     part1ExampleAnswer = "2=-1=0",
     part1Answer = "2=112--220-=-00=-=20",
-    part2Answer = null,
 ) {
     private fun Long.pow(n: Int): Long {
         var result = 1L
@@ -49,7 +48,4 @@ object Day25 : AoCDay<String>(
     }
 
     override fun part1(input: String) = input.lineSequence().sumOf { snafu -> snafu.toLong() }.toSnafu()
-
-    // TODO change AoCDay so that no part2 is required, there is only part1 for day 25
-    override fun part2(input: String) = ""
 }
