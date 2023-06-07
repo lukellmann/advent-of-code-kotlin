@@ -15,9 +15,9 @@ object Day07 : AoCDay<Int>(
     private data class CommandAndOutput(val command: String, val output: List<String>)
 
     private fun parseCommandsAndOutputs(input: String) = input
+        .removePrefix("$ ")
         .splitToSequence("\n$ ")
-        .mapIndexed { index, part ->
-            val commandAndOutput = if (index == 0) part.removePrefix("$ ") else part
+        .map { commandAndOutput ->
             val lines = commandAndOutput.lines()
             CommandAndOutput(command = lines.first(), output = lines.subList(1, lines.size))
         }

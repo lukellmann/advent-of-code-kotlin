@@ -69,7 +69,7 @@ object Day13 : AoCDay<Int>(
             })
             return IndexedValue(index, list)
         }
-        require(input.first() == '[')
+        require(input.length >= 2 && input.first() == '[')
         val (index, packet) = parsePacketDataList(start = 1)
         check(index == input.length) { "input wasn't fully consumed, stopped at $index for length ${input.length}" }
         return packet
