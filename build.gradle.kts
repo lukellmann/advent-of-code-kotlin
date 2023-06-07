@@ -1,9 +1,8 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.8.20-Beta"
+    kotlin("jvm") version "1.9.0-Beta"
     application
 }
 
@@ -12,23 +11,15 @@ repositories {
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass = "MainKt"
 }
 
 tasks {
     withType<KotlinCompile>().configureEach {
         compilerOptions {
-            languageVersion.set(KOTLIN_2_0) // enable K2 compiler
-            freeCompilerArgs.add("-Xsuppress-version-warnings")
-
-            jvmTarget.set(JVM_17)
-            allWarningsAsErrors.set(true)
-            freeCompilerArgs.addAll(
-                "-progressive",
-                "-Xcontext-receivers",
-                "-opt-in=kotlin.ExperimentalStdlibApi",
-                "-opt-in=kotlin.time.ExperimentalTime",
-            )
+            jvmTarget = JVM_17
+            allWarningsAsErrors = true
+            freeCompilerArgs.addAll("-progressive", "-Xcontext-receivers", "-Xsuppress-version-warnings")
         }
     }
 
