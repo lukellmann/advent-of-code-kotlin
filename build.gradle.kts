@@ -1,8 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.0-Beta"
+    kotlin("jvm") version "1.9.0"
     application
 }
 
@@ -14,14 +13,15 @@ application {
     mainClass = "MainKt"
 }
 
-tasks {
-    withType<KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget = JVM_17
-            allWarningsAsErrors = true
-            freeCompilerArgs.addAll("-progressive", "-Xcontext-receivers", "-Xsuppress-version-warnings")
-        }
+kotlin {
+    compilerOptions {
+        jvmTarget = JVM_17
+        allWarningsAsErrors = true
+        progressiveMode = true
+        freeCompilerArgs.addAll("-Xcontext-receivers", "-Xsuppress-version-warnings")
     }
+}
 
+tasks {
     register<GenerateFilesAndBoilerplateForDayTask>("generate")
 }
