@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.9.20"
+    kotlin("jvm") version "2.0.0-Beta1"
     application
 }
 
@@ -16,7 +16,7 @@ kotlin {
     compilerOptions {
         allWarningsAsErrors = true
         progressiveMode = true
-        freeCompilerArgs.addAll("-Xcontext-receivers", "-Xsuppress-version-warnings")
+        freeCompilerArgs.add("-Xcontext-receivers")
     }
 }
 
