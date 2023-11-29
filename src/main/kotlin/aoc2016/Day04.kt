@@ -39,7 +39,7 @@ object Day04 : AoCDay<Int>(
     private val Room.name
         get() = encryptedName.map { letter ->
             when (letter) {
-                in 'a'..'z' -> Char((letter - 'a' + sectorId) % LETTER_COUNT + 'a'.code)
+                in 'a'..'z' -> 'a' + (letter - 'a' + sectorId) % LETTER_COUNT
                 '-' -> ' '
                 else -> illegalInput(letter)
             }
