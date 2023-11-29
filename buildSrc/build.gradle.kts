@@ -5,3 +5,9 @@ plugins {
 repositories {
     mavenCentral()
 }
+
+kotlin {
+    compilerOptions {
+        allWarningsAsErrors = true
+    }
+}
