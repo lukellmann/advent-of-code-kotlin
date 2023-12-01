@@ -31,7 +31,7 @@ object Day23 : AoCDay<Int>(
 
     private inline fun simulateRoundsUntil(input: String, stopPredicate: (RoundResult) -> Boolean): RoundResult {
         var elves = parseElfPositions(input)
-        val directions = Direction.values().toCollection(ArrayDeque())
+        val directions = ArrayDeque(Direction.entries)
         for (round in 1..Int.MAX_VALUE) {
             val proposedPositions = elves.associateWith { elf ->
                 val (x, y) = elf

@@ -96,8 +96,13 @@ abstract class AoCDay<out T : Any> private constructor(
             val out = it.toString()
             "part 2 answer:${if (out.isMultiline) "\n$out" else "          $out"}\n"
         } ?: ""
-        val times = "${if (actualPart1ExampleAnswer != null) "$part1ExampleTime  " else ""}$part1Time  " +
-            "${if (actualPart2ExampleAnswer != null) "$part2ExampleTime  " else ""}${if (hasPart2) part2Time else ""}"
+        val times = "${
+            if (actualPart1ExampleAnswer != null) "$part1ExampleTime  " else ""
+        }$part1Time${
+            if (actualPart2ExampleAnswer != null) "  $part2ExampleTime" else ""
+        }${
+            if (hasPart2) "  $part2Time" else ""
+        }"
         val output =
             "--- $year Day $day: $title ---\n$outputPart1Example$outputPart1$outputPart2Example$outputPart2$times"
         if (day == 1) repeat(3) { println() }
