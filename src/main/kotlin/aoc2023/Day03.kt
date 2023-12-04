@@ -55,9 +55,12 @@ object Day03 : AoCDay<Int>(
 
     override fun part2(input: String): Int {
         val (numbers, symbols) = parseEngineSchematic(input)
-        return symbols.filterValues { it == '*' }.keys
-            .map { asterisk -> numbers.filter { it.adjacentPoints.any(asterisk::equals) } }
-            .filter { adjacentNumbers -> adjacentNumbers.size == 2 }
-            .sumOf { (a, b) -> a.value * b.value }
+        val asteriskAdjacent = symbols.filterValues { it == '*' }.keys.associateWith { mutableListOf<Number>() }
+        for (number in numbers) {
+            for (point in number.adjacentPoints) {
+                asteriskAdjacent[point]?.add(number)
+            }
+        }
+        return asteriskAdjacent.values.filter { it.size == 2 }.sumOf { (a, b) -> a.value * b.value }
     }
 }
