@@ -26,7 +26,7 @@ object Day06 : AoCDay<Long>(
 
     private fun Race.calculateNumberOfWaysToBeatRecord(): Long {
         // c: charge time, t: time, d: distanceRecord
-        // c(t - c) > d  <=>  ^2 - ct < -d  <=>  c^2 - ct + (t/2)^2 < (t/2)^2 - d  <=>  (c - t/2)^2 < (t/2)^2 - d
+        // c(t - c) > d  <=>  c^2 - ct < -d  <=>  c^2 - ct + (t/2)^2 < (t/2)^2 - d  <=>  (c - t/2)^2 < (t/2)^2 - d
         // =>  c e ]t/2 - sqrt((t/2)^2 - d), t/2 + sqrt((t/2)^2 - d)[
         val t2 = time / 2.0
         val sqrt = sqrt(t2 * t2 - distanceRecord)
