@@ -86,16 +86,16 @@ abstract class GenerateFilesAndBoilerplateForDayTask : DefaultTask() {
         import AoCDay
         
         // https://adventofcode.com/$year/day/$day
-        object Day$dayString : AoCDay<>(
+        object Day$dayString : AoCDay<Int>(
             title = "",
-            part1ExampleAnswer = ,
+            part1ExampleAnswer = 0,
             part1Answer = null,
             part2ExampleAnswer = null,
             part2Answer = null,
         ) {
-            override fun part1(input: String) = 
+            override fun part1(input: String) = 0
         
-            override fun part2(input: String) = 
+            override fun part2(input: String) = 0
         }
         
     """.trimIndent().replace("\n", System.lineSeparator())
