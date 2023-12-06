@@ -30,10 +30,8 @@ object Day06 : AoCDay<Long>(
         // =>  c e ]t/2 - sqrt((t/2)^2 - d), t/2 + sqrt((t/2)^2 - d)[
         val t2 = time / 2.0
         val sqrt = sqrt(t2 * t2 - distanceRecord)
-        val minReal = t2 - sqrt
-        val maxReal = t2 + sqrt
-        val min = ceil(minReal).let { if (it == minReal) it + 1 else it }.toLong()
-        val max = floor(maxReal).let { if (it == maxReal) it - 1 else it }.toLong()
+        val min = floor(t2 - sqrt).toLong() + 1
+        val max = ceil(t2 + sqrt).toLong() - 1
         return max - min + 1 // e.g. 2..5: 5 - 2 + 1 = 4
     }
 
