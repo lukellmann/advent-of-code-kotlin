@@ -2,6 +2,7 @@ package aoc2022
 
 import AoCDay
 import util.illegalInput
+import util.pow
 import kotlin.math.abs
 
 // https://adventofcode.com/2022/day/25
@@ -10,12 +11,6 @@ object Day25 : AoCDay<String>(
     part1ExampleAnswer = "2=-1=0",
     part1Answer = "2=112--220-=-00=-=20",
 ) {
-    private fun Long.pow(n: Int): Long {
-        var result = 1L
-        repeat(n) { result *= this }
-        return result
-    }
-
     private fun CharSequence.toLong() = withIndex().sumOf { (index, digit) ->
         val value = when (digit) {
             '2' -> 2L
