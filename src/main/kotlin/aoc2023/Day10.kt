@@ -11,14 +11,19 @@ object Day10 : AoCDay<Int>(
     title = "Pipe Maze",
     part1ExampleAnswer = 8,
     part1Answer = 6725,
-    part2ExampleAnswer = null,
-    part2Answer = null,
+    part2ExampleAnswer = 1,
+    part2Answer = 383,
 ) {
-    private enum class Facing(val dir: Vec2, val nextPipes: String) {
-        NORTH(dir = Vec2(0, -1), nextPipes = "|7F"),
-        EAST(dir = Vec2(1, 0), nextPipes = "-J7"),
-        SOUTH(dir = Vec2(0, 1), nextPipes = "|LJ"),
-        WEST(dir = Vec2(-1, 0), nextPipes = "-LF"),
+    private val UP = Vec2(0, -1)
+    private val RIGHT = Vec2(1, 0)
+    private val DOWN = Vec2(0, 1)
+    private val LEFT = Vec2(-1, 0)
+
+    private enum class Facing(val dir: Vec2, val left: Vec2, val right: Vec2, val nextPipes: String) {
+        NORTH(dir = UP, left = LEFT, right = RIGHT, nextPipes = "|7F"),
+        EAST(dir = RIGHT, left = UP, right = DOWN, nextPipes = "-J7"),
+        SOUTH(dir = DOWN, left = RIGHT, right = LEFT, nextPipes = "|LJ"),
+        WEST(dir = LEFT, left = DOWN, right = UP, nextPipes = "-LF"),
     }
 
     private fun Char.nextFacing(facing: Facing) = when (this) {
@@ -85,5 +90,35 @@ object Day10 : AoCDay<Int>(
 
     override fun part1(input: String) = findLoop(input).size / 2
 
-    override fun part2(input: String) = 0
+    override fun part2(input: String): Int {
+        val leftOfLoop = HashSet<Vec2>()
+        val rightOfLoop = HashSet<Vec2>()
+        var leftIsInfinite = false
+        var rightIsInfinite = false
+        val loop = findLoop(input)
+        val xs = loop.keys.minOf(Vec2::x)..loop.keys.maxOf(Vec2::x)
+        val ys = loop.keys.minOf(Vec2::y)..loop.keys.maxOf(Vec2::y)
+        for ((pos, facings) in loop) {
+            for (facing in facings) {
+                fun addAllNextToPos(left: Boolean) {
+                    val lr = if (left) facing.left else facing.right
+                    generateSequence(pos + lr, lr::plus)
+                        .map { pos -> Pair(pos, pos.x in xs && pos.y in ys) }
+                        .onEach { (_, inBounds) ->
+                            if (!inBounds) if (left) leftIsInfinite = true else rightIsInfinite = true
+                        }
+                        .takeWhile { (pos, inBounds) -> inBounds && pos !in loop.keys }
+                        .forEach { (pos, _) -> (if (left) leftOfLoop else rightOfLoop).add(pos) }
+                }
+                if (!leftIsInfinite) addAllNextToPos(left = true)
+                if (!rightIsInfinite) addAllNextToPos(left = false)
+            }
+        }
+        return when {
+            leftIsInfinite && rightIsInfinite -> error("Somehow, both sides of the loop enclose infinite tiles.")
+            leftIsInfinite -> rightOfLoop.size
+            rightIsInfinite -> leftOfLoop.size
+            else -> error("Somehow, both sides of the loop enclose a finite number of tiles.")
+        }
+    }
 }
