@@ -1,7 +1,7 @@
 package aoc2023
 
 import AoCDay
-import aoc2023.Day10.Dir.*
+import aoc2023.Day10.Facing.*
 import util.Vec2
 import util.illegalInput
 import util.plus
@@ -14,16 +14,14 @@ object Day10 : AoCDay<Int>(
     part2ExampleAnswer = null,
     part2Answer = null,
 ) {
-    private enum class Dir(val facing: Vec2, val next: String) {
-        NORTH(facing = Vec2(0, -1), next = "|7F"),
-        EAST(facing = Vec2(1, 0), next = "-J7"),
-        SOUTH(facing = Vec2(0, 1), next = "|LJ"),
-        WEST(facing = Vec2(-1, 0), next = "-LF"),
+    private enum class Facing(val dir: Vec2, val nextPipes: String) {
+        NORTH(dir = Vec2(0, -1), nextPipes = "|7F"),
+        EAST(dir = Vec2(1, 0), nextPipes = "-J7"),
+        SOUTH(dir = Vec2(0, 1), nextPipes = "|LJ"),
+        WEST(dir = Vec2(-1, 0), nextPipes = "-LF"),
     }
 
-    private operator fun List<String>.get(pos: Vec2) = getOrNull(pos.y)?.getOrNull(pos.x)
-
-    private fun Char.nextDir(facing: Dir): Dir = when (this) {
+    private fun Char.nextFacing(facing: Facing) = when (this) {
         '|' -> when (facing) {
             NORTH, SOUTH -> facing
             EAST, WEST -> illegalInput(facing)
@@ -55,33 +53,37 @@ object Day10 : AoCDay<Int>(
         else -> illegalInput(this)
     }
 
-    private fun loopSize(grid: List<String>, sRow: Int, sCol: Int): Int {
-        outer@ for (dir in Dir.entries) {
-            var pos = Vec2(sCol, sRow)
-            var facing = dir
-            var size = 1
+    private fun findLoop(input: String): Map<Vec2, Set<Facing>> {
+        val grid = input.lines()
+        val s = run {
+            val sRow = grid.indexOfFirst { 'S' in it }
+            Vec2(x = grid[sRow].indexOf('S'), y = sRow)
+        }
+        outer@ for (f in Facing.entries) {
+            val loop = HashMap<Vec2, Set<Facing>>()
+            var facing = f
+            var pos = s + f.dir
             while (true) {
-                pos += facing.facing
-                when (val next = grid[pos]) {
-                    'S' -> return size
-                    null -> continue@outer
-                    in facing.next -> {
-                        facing = next.nextDir(facing)
-                        size++
+                when (val pipe = grid.getOrNull(pos.y)?.getOrNull(pos.x)) {
+                    null -> continue@outer // out of grid, no loop
+                    'S' -> {
+                        loop[pos] = setOf(f, facing)
+                        return loop
                     }
-                    else -> continue@outer
+                    in facing.nextPipes -> {
+                        val before = facing
+                        facing = pipe.nextFacing(facing)
+                        loop[pos] = setOf(before, facing)
+                        pos += facing.dir
+                    }
+                    else -> continue@outer // pipe doesn't connect with previous, no loop
                 }
             }
         }
         error("Did not find loop")
     }
 
-    override fun part1(input: String): Int {
-        val grid = input.lines()
-        val sRow = grid.indexOfFirst { 'S' in it }
-        val sCol = grid[sRow].indexOf('S')
-        return loopSize(grid, sRow, sCol) / 2
-    }
+    override fun part1(input: String) = findLoop(input).size / 2
 
     override fun part2(input: String) = 0
 }
