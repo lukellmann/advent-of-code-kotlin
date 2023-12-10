@@ -2,7 +2,10 @@ package aoc2016
 
 import AoCDay
 import aoc2016.Day01.Dir.*
+import util.Vec2
 import util.illegalInput
+import util.plus
+import util.times
 import kotlin.math.abs
 
 // https://adventofcode.com/2016/day/1
@@ -13,10 +16,6 @@ object Day01 : AoCDay<Int>(
     part2ExampleAnswer = 4,
     part2Answer = 143,
 ) {
-    private data class Vec2(val x: Int, val y: Int)
-
-    private operator fun Vec2.plus(other: Vec2) = Vec2(this.x + other.x, this.y + other.y)
-    private operator fun Vec2.times(scalar: Int) = Vec2(x * scalar, y * scalar)
     private fun Vec2.manhattanDistanceFromStart() = abs(x) + abs(y)
 
     private enum class Dir(val vec: Vec2) {
