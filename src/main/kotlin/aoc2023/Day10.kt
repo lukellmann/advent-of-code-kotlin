@@ -107,7 +107,7 @@ object Day10 : AoCDay<Int>(
                         .onEach { (_, inBounds) ->
                             if (!inBounds) if (left) leftIsInfinite = true else rightIsInfinite = true
                         }
-                        .takeWhile { (pos, inBounds) -> inBounds && pos !in loop.keys }
+                        .takeWhile { (pos, inBounds) -> inBounds && pos !in loop }
                         .forEach { (pos, _) -> (if (left) leftOfLoop else rightOfLoop).add(pos) }
                 }
                 if (!leftIsInfinite) addAllNextToPos(left = true)
