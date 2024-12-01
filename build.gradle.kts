@@ -1,5 +1,7 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_23
+
 plugins {
-    kotlin("jvm") version "2.0.0-Beta2"
+    kotlin("jvm") version "2.1.0"
     application
 }
 
@@ -12,14 +14,21 @@ application {
 }
 
 kotlin {
-    jvmToolchain(21)
     compilerOptions {
         allWarningsAsErrors = true
         progressiveMode = true
-        freeCompilerArgs.add("-Xcontext-receivers")
+        extraWarnings = true
+        jvmTarget = JVM_23
+        freeCompilerArgs.addAll(
+            "-Xjdk-release=23",
+            "-Xcontext-receivers",
+            "-Xsuppress-warning=CONTEXT_RECEIVERS_DEPRECATED",
+            "-Xsuppress-warning=UNUSED_ANONYMOUS_PARAMETER",
+        )
     }
 }
 
 tasks {
     register<GenerateFilesAndBoilerplateForDayTask>("generate")
+    withType<JavaCompile> { options.release = 23 }
 }
