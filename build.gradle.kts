@@ -21,6 +21,7 @@ kotlin {
         jvmTarget = JVM_23
         freeCompilerArgs.addAll(
             "-Xjdk-release=23",
+            "-Xwhen-guards",
             "-Xcontext-receivers",
             "-Xsuppress-warning=CONTEXT_RECEIVERS_DEPRECATED",
             "-Xsuppress-warning=UNUSED_ANONYMOUS_PARAMETER",
