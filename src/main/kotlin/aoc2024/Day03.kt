@@ -28,21 +28,13 @@ object Day03 : AoCDay<Int>(
         var right = 0
         for (char in input) {
             previousChar = when (previousChar) {
-                UNKNOWN -> when (char) {
-                    'm' -> M
-                    'd' -> D
-                    else -> UNKNOWN
-                }
-
-                M -> if (char == 'u') U else UNKNOWN
-                U -> if (char == 'l') L else UNKNOWN
-                L -> if (char == '(') LPAREN_MUL else UNKNOWN
-                LPAREN_MUL -> when (char) {
-                    in '0'..'9' -> {
-                        left = char - '0'
-                        LEFT1
-                    }
-                    else -> UNKNOWN
+                UNKNOWN if char == 'm' -> M
+                M if char == 'u' -> U
+                U if char == 'l' -> L
+                L if char == '(' -> LPAREN_MUL
+                LPAREN_MUL if char in '0'..'9' -> {
+                    left = char - '0'
+                    LEFT1
                 }
                 LEFT1, LEFT2 -> when (char) {
                     in '0'..'9' -> {
@@ -52,13 +44,10 @@ object Day03 : AoCDay<Int>(
                     ',' -> COMMA
                     else -> UNKNOWN
                 }
-                LEFT3 -> if (char == ',') COMMA else UNKNOWN
-                COMMA -> when (char) {
-                    in '0'..'9' -> {
-                        right = char - '0'
-                        RIGHT1
-                    }
-                    else -> UNKNOWN
+                LEFT3 if char == ',' -> COMMA
+                COMMA  if char in '0'..'9' -> {
+                    right = char - '0'
+                    RIGHT1
                 }
                 RIGHT1, RIGHT2 -> when (char) {
                     in '0'..'9' -> {
@@ -76,24 +65,25 @@ object Day03 : AoCDay<Int>(
                     UNKNOWN
                 }
 
-                D -> if (char == 'o') O else UNKNOWN
-                O -> when (char) {
-                    '(' -> LPAREN_DO
-                    'n' -> N
-                    else -> UNKNOWN
-                }
+                UNKNOWN if char == 'd' -> D
+                D if char == 'o' -> O
+
+                O if char == '(' -> LPAREN_DO
                 LPAREN_DO -> {
                     if (char == ')') yield(Instruction.Do)
                     UNKNOWN
                 }
 
-                N -> if (char == '\'') QUOTE else UNKNOWN
-                QUOTE -> if (char == 't') T else UNKNOWN
-                T -> if (char == '(') LPAREN_DONT else UNKNOWN
+                O if char == 'n' -> N
+                N  if char == '\'' -> QUOTE
+                QUOTE  if char == 't' -> T
+                T if char == '(' -> LPAREN_DONT
                 LPAREN_DONT -> {
                     if (char == ')') yield(Instruction.Dont)
                     UNKNOWN
                 }
+
+                UNKNOWN, M, U, L, LPAREN_MUL, LEFT3, COMMA, D, O, N, QUOTE, T -> UNKNOWN
             }
         }
     }
