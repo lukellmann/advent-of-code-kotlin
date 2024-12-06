@@ -25,7 +25,7 @@ object Day05 : AoCDay<Int>(
         val pageOrdering = PageOrdering { pageNumber1, pageNumber2 ->
             when {
                 pageNumber1 in (pageSuccessors[pageNumber2] ?: emptyList()) -> 1 // pn1 > pn2
-                pageNumber2 in (pageSuccessors[pageNumber1] ?: emptyList()) -> -1// pn1 < pn2
+                pageNumber2 in (pageSuccessors[pageNumber1] ?: emptyList()) -> -1 // pn1 < pn2
                 else -> throw IllegalArgumentException(
                     "no page ordering rule exists between page numbers $pageNumber1 and $pageNumber2"
                 )
