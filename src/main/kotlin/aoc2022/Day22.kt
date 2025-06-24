@@ -1,7 +1,6 @@
 package aoc2022
 
 import AoCDay
-import aoc2022.Day22.Direction.*
 import aoc2022.Day22.Space.*
 import util.illegalInput
 
@@ -70,7 +69,7 @@ object Day22 : AoCDay<Int>(
         val map = parseMap(m)
         var row = 0
         var col = map[row].indexOf(TILE)
-        var facing = RIGHT
+        var facing = Direction.RIGHT
         for (path in parsePath(p)) {
             when (path) {
                 Path.Right -> facing = when (facing) {

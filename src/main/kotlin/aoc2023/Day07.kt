@@ -1,7 +1,6 @@
 package aoc2023
 
 import AoCDay
-import aoc2023.Day07.Hand.Type.*
 import util.illegalInput
 import util.pow
 import kotlin.math.max

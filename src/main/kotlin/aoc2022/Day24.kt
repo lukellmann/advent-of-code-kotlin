@@ -1,11 +1,7 @@
 package aoc2022
 
 import AoCDay
-import aoc2022.Blizzard.*
 import util.illegalInput
-
-private enum class Blizzard { UP, DOWN, LEFT, RIGHT }
-private typealias Blizzards = List<List<Set<Blizzard>>>
 
 // https://adventofcode.com/2022/day/24
 object Day24 : AoCDay<Int>(
@@ -15,11 +11,14 @@ object Day24 : AoCDay<Int>(
     part2ExampleAnswer = 54,
     part2Answer = 856,
 ) {
+    private enum class Blizzard { UP, DOWN, LEFT, RIGHT }
+    private typealias Blizzards = List<List<Set<Blizzard>>>
+
     private fun parseBlizzards(input: String): Triple<Blizzards, Int, Int> {
         val lines = input.lines()
         val startX = lines.first().indexOf('.') - 1
         val goalX = lines.last().indexOf('.') - 1
-        val blizzards = List(size = lines.size - 2) { y ->
+        val blizzards: Blizzards = List(size = lines.size - 2) { y ->
             val line = lines[y + 1]
             List(size = line.length - 2) { x ->
                 when (val char = line[x + 1]) {

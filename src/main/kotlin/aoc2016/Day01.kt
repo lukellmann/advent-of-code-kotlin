@@ -1,7 +1,6 @@
 package aoc2016
 
 import AoCDay
-import aoc2016.Day01.Dir.*
 import util.Vec2
 import util.illegalInput
 import util.plus
@@ -25,7 +24,7 @@ object Day01 : AoCDay<Int>(
         WEST(Vec2(0, -1)),
     }
 
-    private fun Dir.turn(dir: Char) = when (dir) {
+    private fun Dir.turn(dir: Char): Dir = when (dir) {
         'L' -> when (this) {
             NORTH -> WEST
             EAST -> NORTH
@@ -44,7 +43,7 @@ object Day01 : AoCDay<Int>(
     override fun part1(input: String) = input
         .splitToSequence(", ")
         .fold(
-            initial = Pair(Vec2(0, 0), NORTH),
+            initial = Pair(Vec2(0, 0), Dir.NORTH),
         ) { (pos, facing), ins ->
             val newFacing = facing.turn(ins.first())
             val step = ins.drop(1).toInt()
@@ -56,12 +55,11 @@ object Day01 : AoCDay<Int>(
 
     override fun part2(input: String): Int {
         var pos = Vec2(0, 0)
-        var facing = NORTH
+        var facing = Dir.NORTH
         val visited = hashSetOf(pos)
         outer@ for (ins in input.splitToSequence(", ")) {
             facing = facing.turn(ins.first())
-            val step = ins.drop(1).toInt()
-            for (i in 0..<step) {
+            repeat(ins.drop(1).toInt()) {
                 pos += facing.vec
                 if (!visited.add(pos)) break@outer
             }

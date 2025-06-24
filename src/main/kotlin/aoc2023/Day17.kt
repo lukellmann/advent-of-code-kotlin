@@ -1,7 +1,6 @@
 package aoc2023
 
 import AoCDay
-import aoc2023.Day17.Dir.*
 import util.Vec2
 import util.plus
 import java.util.*

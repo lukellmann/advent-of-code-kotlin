@@ -3,8 +3,6 @@ package aoc2022
 import AoCDay
 import util.illegalInput
 
-private typealias Operation = (Long) -> Long
-
 // https://adventofcode.com/2022/day/11
 object Day11 : AoCDay<Long>(
     title = "Monkey in the Middle",
@@ -21,6 +19,8 @@ object Day11 : AoCDay<Long>(
          {4}If true: throw to monkey (\d+)
          {4}If false: throw to monkey (\d+)
     """.trimIndent().toRegex()
+
+    private typealias Operation = (Long) -> Long
 
     private class Item(var worryLevel: Long)
     private class Monkey(

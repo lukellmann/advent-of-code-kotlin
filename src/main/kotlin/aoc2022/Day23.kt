@@ -1,7 +1,6 @@
 package aoc2022
 
 import AoCDay
-import aoc2022.Day23.Direction.*
 import util.illegalInput
 
 // https://adventofcode.com/2022/day/23

@@ -3,8 +3,6 @@ package aoc2022
 import AoCDay
 import util.*
 
-private typealias Crate = Char
-
 // https://adventofcode.com/2022/day/5
 object Day05 : AoCDay<String>(
     title = "Supply Stacks",
@@ -13,6 +11,8 @@ object Day05 : AoCDay<String>(
     part2ExampleAnswer = "MCD",
     part2Answer = "BPCZJLFJW",
 ) {
+    private typealias Crate = Char
+
     // parsing crate stacks assumes single digit stack numbers and will otherwise break
     private const val STACK_WIDTH = 4
     private fun parseCrateStacks(input: String): Array<Stack<Crate>> {

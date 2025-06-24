@@ -1,7 +1,6 @@
 package aoc2023
 
 import AoCDay
-import aoc2023.Day10.Facing.*
 import util.Vec2
 import util.illegalInput
 import util.plus
@@ -26,7 +25,7 @@ object Day10 : AoCDay<Int>(
         WEST(dir = LEFT, left = DOWN, right = UP, nextPipes = "-LF"),
     }
 
-    private fun Char.nextFacing(facing: Facing) = when (this) {
+    private fun Char.nextFacing(facing: Facing): Facing = when (this) {
         '|' -> when (facing) {
             NORTH, SOUTH -> facing
             EAST, WEST -> illegalInput(facing)

@@ -1,7 +1,6 @@
 package aoc2022
 
 import AoCDay
-import aoc2022.Day02.Shape.*
 import util.component1
 import util.component2
 import util.component3
@@ -21,7 +20,7 @@ object Day02 : AoCDay<Int>(
         SCISSORS(defeats = { PAPER }, isDefeatedBy = { ROCK }, score = 3),
     }
 
-    private fun Char.toShape() = when (this) {
+    private fun Char.toShape(): Shape = when (this) {
         'A' -> ROCK
         'B' -> PAPER
         'C' -> SCISSORS

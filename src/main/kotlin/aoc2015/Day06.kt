@@ -1,7 +1,6 @@
 package aoc2015
 
 import AoCDay
-import aoc2015.Day06.Instruction.*
 import util.illegalInput
 import util.match
 
@@ -15,7 +14,7 @@ object Day06 : AoCDay<Int>(
 ) {
     private enum class Instruction { TURN_ON, TOGGLE, TURN_OFF }
 
-    private fun String.toInstruction() = when (this) {
+    private fun String.toInstruction(): Instruction = when (this) {
         "turn on" -> TURN_ON
         "toggle" -> TOGGLE
         "turn off" -> TURN_OFF

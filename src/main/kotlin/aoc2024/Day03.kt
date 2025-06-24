@@ -1,7 +1,6 @@
 package aoc2024
 
 import AoCDay
-import aoc2024.Day03.Character.*
 
 // https://adventofcode.com/2024/day/3
 object Day03 : AoCDay<Int>(
@@ -23,7 +22,7 @@ object Day03 : AoCDay<Int>(
     }
 
     private fun parseInstructions(input: String) = sequence {
-        var previousChar = UNKNOWN
+        var previousChar = Character.UNKNOWN
         var left = 0
         var right = 0
         for (char in input) {
@@ -45,7 +44,7 @@ object Day03 : AoCDay<Int>(
                     else -> UNKNOWN
                 }
                 LEFT3 if char == ',' -> COMMA
-                COMMA  if char in '0'..'9' -> {
+                COMMA if char in '0'..'9' -> {
                     right = char - '0'
                     RIGHT1
                 }
@@ -75,8 +74,8 @@ object Day03 : AoCDay<Int>(
                 }
 
                 O if char == 'n' -> N
-                N  if char == '\'' -> QUOTE
-                QUOTE  if char == 't' -> T
+                N if char == '\'' -> QUOTE
+                QUOTE if char == 't' -> T
                 T if char == '(' -> LPAREN_DONT
                 LPAREN_DONT -> {
                     if (char == ')') yield(Instruction.Dont)

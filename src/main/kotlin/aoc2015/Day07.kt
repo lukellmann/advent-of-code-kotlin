@@ -4,8 +4,6 @@ import AoCDay
 import aoc2015.Day07.Signal.*
 import util.illegalInput
 
-private typealias WireId = String
-
 // https://adventofcode.com/2015/day/7
 object Day07 : AoCDay<UShort>(
     title = "Some Assembly Required",
@@ -13,6 +11,8 @@ object Day07 : AoCDay<UShort>(
     part1Answer = 16076u,
     part2Answer = 2797u,
 ) {
+    private typealias WireId = String
+
     private sealed interface Signal {
         class Value(val value: UShort) : Signal
         class Wire(val wireId: WireId) : Signal

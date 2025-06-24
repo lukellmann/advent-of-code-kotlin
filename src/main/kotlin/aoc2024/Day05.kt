@@ -3,9 +3,6 @@ package aoc2024
 import AoCDay
 import util.isSorted
 
-private typealias PageOrdering = Comparator<Int>
-private typealias Update = List<Int>
-
 // https://adventofcode.com/2024/day/5
 object Day05 : AoCDay<Int>(
     title = "Print Queue",
@@ -14,6 +11,9 @@ object Day05 : AoCDay<Int>(
     part2ExampleAnswer = 123,
     part2Answer = 5466,
 ) {
+    private typealias PageOrdering = Comparator<Int>
+    private typealias Update = List<Int>
+
     private fun parsePageOrderingAndUpdates(input: String): Pair<PageOrdering, Sequence<Update>> {
         val (pageOrderingRules, updatePageNumbers) = input.split("\n\n", limit = 2)
         val pageSuccessors = pageOrderingRules

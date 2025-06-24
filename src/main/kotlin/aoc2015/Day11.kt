@@ -1,11 +1,10 @@
 package aoc2015
 
 import AoCDay
+import aoc2015.Day11.Password
 import util.component1
 import util.component2
 import util.component3
-
-private typealias Password = String
 
 // https://adventofcode.com/2015/day/11
 object Day11 : AoCDay<Password>(
@@ -14,6 +13,8 @@ object Day11 : AoCDay<Password>(
     part1Answer = "cqjxxyzz",
     part2Answer = "cqkaabcc",
 ) {
+    private typealias Password = String
+
     private fun nextPasswords(current: Password) = generateSequence(seed = current) { pw ->
         var indexBeforeZ = pw.lastIndex
         while (indexBeforeZ >= 0 && pw[indexBeforeZ] == 'z') indexBeforeZ--

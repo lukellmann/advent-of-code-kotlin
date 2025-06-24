@@ -1,26 +1,9 @@
 package aoc2022
 
 import AoCDay
-import aoc2022.Job.YellNumber
-import aoc2022.Job.YellOperation
+import aoc2022.Day21.Job.YellNumber
+import aoc2022.Day21.Job.YellOperation
 import util.illegalInput
-
-private typealias Monkey = String
-
-private sealed interface Job {
-    class YellNumber(val number: Long) : Job
-    sealed class YellOperation(val left: Monkey, val right: Monkey) : Job {
-        operator fun component1() = left
-        operator fun component2() = right
-
-        class Add(left: Monkey, right: Monkey) : YellOperation(left, right)
-        class Subtract(left: Monkey, right: Monkey) : YellOperation(left, right)
-        class Multiply(left: Monkey, right: Monkey) : YellOperation(left, right)
-        class Divide(left: Monkey, right: Monkey) : YellOperation(left, right)
-    }
-}
-
-private typealias MonkeyJobs = Map<Monkey, Job>
 
 // https://adventofcode.com/2022/day/21
 object Day21 : AoCDay<Long>(
@@ -30,6 +13,23 @@ object Day21 : AoCDay<Long>(
     part2ExampleAnswer = 301,
     part2Answer = 3429411069028,
 ) {
+    private typealias Monkey = String
+
+    private sealed interface Job {
+        class YellNumber(val number: Long) : Job
+        sealed class YellOperation(val left: Monkey, val right: Monkey) : Job {
+            operator fun component1() = left
+            operator fun component2() = right
+
+            class Add(left: Monkey, right: Monkey) : YellOperation(left, right)
+            class Subtract(left: Monkey, right: Monkey) : YellOperation(left, right)
+            class Multiply(left: Monkey, right: Monkey) : YellOperation(left, right)
+            class Divide(left: Monkey, right: Monkey) : YellOperation(left, right)
+        }
+    }
+
+    private typealias MonkeyJobs = Map<Monkey, Job>
+
     private fun parseJob(job: String) = job.toLongOrNull()?.let(::YellNumber) ?: run {
         val (left, op, right) = job.split(' ', limit = 3)
         when (op) {
@@ -49,11 +49,11 @@ object Day21 : AoCDay<Long>(
     private const val ROOT = "root"
     private const val HUMN = "humn"
 
-    context(MonkeyJobs)
+    context(jobs: MonkeyJobs)
     private val Monkey.job
-        get() = this@MonkeyJobs.getValue(this@Monkey)
+        get() = jobs.getValue(this@job)
 
-    context(MonkeyJobs)
+    context(_: MonkeyJobs)
     private fun Monkey.yell(): Long = when (val job = job) {
         is YellNumber -> job.number
         is YellOperation.Add -> job.left.yell() + job.right.yell()
@@ -62,21 +62,21 @@ object Day21 : AoCDay<Long>(
         is YellOperation.Divide -> job.left.yell() / job.right.yell()
     }
 
-    context(MonkeyJobs)
+    context(_: MonkeyJobs)
     private operator fun Monkey.contains(other: Monkey): Boolean =
         this == other || when (val job = this.job) {
             is YellNumber -> false
             is YellOperation -> other in job.left || other in job.right
         }
 
-    override fun part1(input: String) = with(parseMonkeyJobs(input)) { ROOT.yell() }
+    override fun part1(input: String) = context(parseMonkeyJobs(input)) { ROOT.yell() }
 
     override fun part2(input: String): Long {
         val jobs = parseMonkeyJobs(input)
-        with(jobs - ROOT - HUMN) {
+        context(jobs - ROOT - HUMN) {
             var (monkey, target) = run {
                 val (left, right) = jobs[ROOT] as YellOperation
-                if (with(jobs) { HUMN in left }) left to right.yell() else right to left.yell()
+                if (context(jobs) { HUMN in left }) left to right.yell() else right to left.yell()
             }
             while (monkey != HUMN) {
                 val job = monkey.job as YellOperation
